@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, avoid_print, non_constant_identifier_names, unrelated_type_equality_checks, prefer_interpolation_to_compose_strings, unnecessary_brace_in_string_interps
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, unnecessary_brace_in_string_interps
 import 'dart:convert';
 
 import 'package:curd_api/model/murid.dart';
@@ -52,9 +52,9 @@ class MuridService {
 
   Future updateMurid(int nisn, String nama, String email, String phone,
       String address, String gender, int kelas) async {
-    Uri urlData = Uri.parse(url + "/${nisn}");
+    Uri urlData = Uri.parse(url + "/${nisn}");  
 
-    Map data = {
+    Map data = { 
       "name_murid": nama,
       "email_murid": email,
       "number_phone_murid": phone,
@@ -76,6 +76,20 @@ class MuridService {
     } else {
       // print("gagal");
       print(response.body);
+      return false;
+    }
+  }
+
+  Future deleteMurid(int nisn) async { //ganti
+    Uri urlData = Uri.parse(url + "/${nisn}"); //ganti
+
+    final response = await http.delete(urlData); //ganti
+
+    if (response.statusCode == 200) {
+      print("berhasil");
+      return true; //hapus data & ubah jadi true
+    } else {
+      print("gagal");
       return false;
     }
   }

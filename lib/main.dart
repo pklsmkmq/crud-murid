@@ -1,4 +1,6 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_is_empty, avoid_print
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_is_empty, avoid_print, unused_element
+
+import 'dart:developer';
 
 import 'package:curd_api/add_murid.dart';
 import 'package:curd_api/edit_murid.dart';
@@ -47,8 +49,19 @@ class _HomeMuridState extends State<HomeMurid> {
         setState(() {
           print(value);
           data = value;
-          data.sort((a, b) => a.nameMurid.toLowerCase().compareTo(b.nameMurid.toLowerCase()));
+          data.sort((a, b) =>
+              a.nameMurid.toLowerCase().compareTo(b.nameMurid.toLowerCase()));
         });
+      }
+    });
+  }
+
+  _hapusData(int nisn) {
+    MuridService().deleteMurid(nisn).then((value) {
+      if (value) {
+        Navigator.pushReplacementNamed(context, "/");
+      } else {
+        log("Gagal Hapus");
       }
     });
   }
@@ -64,6 +77,7 @@ class _HomeMuridState extends State<HomeMurid> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Data Murid"),
+        automaticallyImplyLeading: false, //Mengha..
       ),
       body: data.length == 0
           ? Center(child: CircularProgressIndicator())
@@ -74,7 +88,12 @@ class _HomeMuridState extends State<HomeMurid> {
                     title: Text(data[index].nameMurid),
                     subtitle: Text(data[index].nisn.toString()),
                     // ignore: prefer_const_literals_to_create_immutables
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    trailing: InkWell(
+                      child: Icon(Icons.delete_outline, color: Colors.red),
+                      onTap: () {
+                        _hapusData(data[index].nisn);
+                      },
+                    ),
                     onTap: (() => Navigator.pushNamed(context, "/editMurid",
                         arguments: data[index])));
               },

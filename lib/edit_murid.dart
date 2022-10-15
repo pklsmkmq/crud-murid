@@ -45,8 +45,7 @@ class _EditMuridState extends State<EditMurid> {
             _phone.text, _address.text, _gender.text, int.parse(_kelas.text))
         .then((value) {
       if (value) {
-        // Navigator.pushReplacementNamed(context, "/");
-        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, "/");
       } else {
         setState(() {
           status = false;
@@ -60,7 +59,7 @@ class _EditMuridState extends State<EditMurid> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tambah Murid"),
+        title: Text("Edit Murid"),
       ),
       body: SingleChildScrollView(
           // ignore: prefer_const_constructors

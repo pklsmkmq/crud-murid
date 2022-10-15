@@ -29,7 +29,7 @@ class _AddMuridState extends State<AddMurid> {
         Navigator.pushReplacementNamed(context, "/");
       } else {
         setState(() {
-          status == false;
+          status = false;
         });
         log("gagal");
       }
